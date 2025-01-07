@@ -8,12 +8,17 @@ RSpec.describe Washcloth do
   end
 
   it "cleans data that includes XML" do
+    Washcloth.filter(:username)
     Washcloth.filter(:password)
+
     result = Washcloth.clean(curl_error)
 
     expect(result).to include("<Password>")
     expect(result).to include("</Password>")
+    expect(result).to include("<UserName>")
+    expect(result).to include("</UserName>")
     expect(result).not_to include("MY_AWESOME_PASSWORD")
+    expect(result).not_to include("username")
   end
 
   it "cleans data that includes serialized ActiveRecord" do

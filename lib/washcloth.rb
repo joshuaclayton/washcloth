@@ -18,7 +18,7 @@ module Washcloth
   def self.clean(value)
     Internal.configuration.filters.inject(value) do |memo, (_, filter)|
       Formatters::ActiveRecord.new(filter).run(
-        Formatters::Xml.new(filter).run(value)
+        Formatters::Xml.new(filter).run(memo)
       )
     end
   end
